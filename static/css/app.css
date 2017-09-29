@@ -13,3 +13,7 @@
 ul {
   list-style-type: none;
 }
+#cardList{
+    text-align: center;
+    align-content: center;
+}
