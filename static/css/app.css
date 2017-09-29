@@ -17,3 +17,8 @@ ul {
     text-align: center;
     align-content: center;
 }
+#markdownIcon
+{
+    background-color: red ;
+    align-self: center;
+}

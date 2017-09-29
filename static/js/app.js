@@ -4,8 +4,8 @@ listOFLinks = [];
 
 Dropzone.options.myAwesomeDropzone = {
         maxFilesize: 20, // Size in MB
-        dictDefaultMessage: "Перенесите файлы сюда",
-        previewsContainer:
+        dictDefaultMessage: "Перенесите файлы сюда или кликните для загрузки",
+        previewsContainer: false,
         removedfile: function (file) {
             var fileRef;
             return (fileRef = file.previewElement) != null ?
@@ -16,7 +16,7 @@ Dropzone.options.myAwesomeDropzone = {
             createZone();
             createCardLinkArea();
 
-            createNewCard(response);
+            createNewCard(response, file);
         },
 
         error: function (file, response) {
@@ -25,14 +25,6 @@ Dropzone.options.myAwesomeDropzone = {
 
     };
 
-/*function addToListAndPrint(response) {
-    var newLI = document.createElement("li");
-    displaySpellList = document.getElementById("listOfLinks");
-    newContent = document.createTextNode(response);
-    newLI.appendChild(newContent);
-    displaySpellList.appendChild(newLI);
-
-}*/
 function createZone() {
     console.log(1);
     var div =  document.createElement('div');
@@ -51,12 +43,36 @@ function createCardLinkArea() {
      cardLinks.appendChild(div);
 
 }
- function createNewCard(response) {
-     //var a1 = "<div class=\"card\"> <div class=\"card-body\"> <div class=\"card-title\"> Карточка  </div> </div></div>";
-     //document.getElementById("cardList").innerHTML = a1;
+ function createNewCard(response, file) {
+     console.log(file);
+     var img = document.createElement('img');
+     img.className = 'card-img-left';
+     img.height = 100;
+     img.width = 100;
+     img.align = 'left';
+     img.src = file.dataURL;
+
+     var icon = document.createElement('img');
+     icon.className = 'tm-preview-link__icon';
+
+     var valueLink = document.createElement('input');
+     valueLink.value = response;
+     valueLink.size = 100;
+
+     var h = document.createElement("H5");
+     h.align='center';
+     var t = document.createTextNode("Прямая ссылка");
+     h.appendChild(t);
+
+     var insideDiv = document.createElement('div');
+     //insideDiv.className = 'tm-preview-link tm-preview-link_markdown';
+     //insideDiv.appendChild(icon);
+     insideDiv.appendChild(h);
+     insideDiv.appendChild(valueLink);
      var div = document.createElement('div');
      div.className = 'list-group-item';
-     div.innerHTML = response;
+     div.appendChild(img);
+     div.appendChild(insideDiv);
      cardList = document.getElementById("cardList");
      cardList.appendChild(div);
  }
