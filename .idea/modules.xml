@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/../GeekImage/.idea/GeekImage.iml" filepath="$PROJECT_DIR$/../GeekImage/.idea/GeekImage.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/GeekStorage.iml" filepath="$PROJECT_DIR$/.idea/GeekStorage.iml" />
+    </modules>
+  </component>
+</project>
