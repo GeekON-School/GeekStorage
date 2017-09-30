@@ -16,8 +16,11 @@ class MainHandler (tornado.web.RequestHandler):
 			finalName = str(uuid.uuid4()) + str(extension)
 			with open('images/' + finalName, 'wb') as f:
 				f.write(file['body'])
-			file_url = ' storage.geekclass.ru/' + finalName
-			self.write(file_url)
+			direct_url = 'https://storage.geekclass.ru/' + finalName
+			markdown_url = '![](https://storage.geekclass.ru/'+ finalName + ')'
+			html_url =  '<img src="https://storage.geekclass.ru/"'+finalName+'/>'
+			data ={"direct_url":direct_url, "markdown": markdown_url, "html" : html_url}
+			self.write(json.dumps(data))
 
 
 settings = [

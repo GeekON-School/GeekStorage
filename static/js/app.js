@@ -44,33 +44,58 @@ function createCardLinkArea() {
 
 }
  function createNewCard(response, file) {
-     console.log(file);
+     var data = JSON.parse(response);
+     console.log(data);
      var img = document.createElement('img');
      img.className = 'card-img-left';
-     img.height = 100;
-     img.width = 100;
+     img.id = 'img';
+     img.height = 180;
+     img.width = 240;
      img.align = 'left';
      img.src = file.dataURL;
 
-     var icon = document.createElement('img');
-     icon.className = 'tm-preview-link__icon';
+     var directLink = document.createElement('input');
+     directLink.value = data.direct_url;
+     directLink.id = 'directLink';
+     directLink.size = 85;
 
-     var valueLink = document.createElement('input');
-     valueLink.value = response;
-     valueLink.size = 100;
+     var markdownLink = document.createElement('input');
+     markdownLink.value = data.markdown;
+     markdownLink.id = 'markdownLink';
+     markdownLink.size = 85;
 
-     var h = document.createElement("H5");
-     h.align='center';
-     var t = document.createTextNode("Прямая ссылка");
-     h.appendChild(t);
+     var htmlLink= document.createElement('input');
+     htmlLink.value = data.html;
+     htmlLink.id = 'htmlLink';
+     htmlLink.size = 85;
+
+     var headerDirectUrl = document.createElement("H6");
+     headerDirectUrl.align='center';
+     var textNodeDirectLink = document.createTextNode("Прямая ссылка:");
+     headerDirectUrl.appendChild(textNodeDirectLink);
+
+     var headerMarkDownUrl = document.createElement("H6");
+     headerMarkDownUrl.align='center';
+     headerMarkDownUrl.id = 'headerMarkdownUrl';
+     var textNodeMarkdownLink = document.createTextNode("Markdown");
+     headerMarkDownUrl.appendChild(textNodeMarkdownLink);
+
+     var headerHTMLUrl = document.createElement("H6");
+     headerHTMLUrl.align='center';
+     headerHTMLUrl.id = 'headerHTMLUrl';
+     var textNodeHTMLLink = document.createTextNode("HTML");
+     headerHTMLUrl.appendChild(textNodeHTMLLink);
 
      var insideDiv = document.createElement('div');
-     //insideDiv.className = 'tm-preview-link tm-preview-link_markdown';
-     //insideDiv.appendChild(icon);
-     insideDiv.appendChild(h);
-     insideDiv.appendChild(valueLink);
+     insideDiv.appendChild(headerDirectUrl);
+     insideDiv.appendChild(directLink);
+     insideDiv.appendChild(headerMarkDownUrl);
+     insideDiv.appendChild(markdownLink);
+     insideDiv.appendChild(headerHTMLUrl);
+     insideDiv.appendChild(htmlLink);
      var div = document.createElement('div');
      div.className = 'list-group-item';
+     div.id = 'list-group-item';
      div.appendChild(img);
      div.appendChild(insideDiv);
      cardList = document.getElementById("cardList");
