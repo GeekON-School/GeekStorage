@@ -1,35 +1,44 @@
-#dropArea{
-	width: 1000px;
-	min-height: 800px;
-	margin: 30px auto 0;
-	padding: 0 20px;
-	border: 2px;
+#dropArea {
+    width: 1000px;
+    min-height: 800px;
+    margin: 30px auto 0;
+    padding: 0 20px;
+    border: 2px;
     background: white;
 }
+
 #link_list {
     text-align: center;
 }
 
 ul {
-  list-style-type: none;
-}
-#cardList{
-    font-weight: bold;
-
+    list-style-type: none;
 }
 
-#directLink{
+#directLink {
     margin-left: 20px;
 }
-#markdownLink{
+
+#markdownLink {
     margin-left: 20px;
 }
-#htmlLink{
+
+#htmlLink {
     margin-left: 20px;
 }
-#headerMarkdownUrl{
+
+#headerMarkdownUrl {
+    margin-top: 5px;
+    align-content: center;
+}
+
+#headerHTMLUrl {
     margin-top: 5px;
 }
-#headerHTMLUrl{
-    margin-top: 5px;
+
+#rightColumn {
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+
 }

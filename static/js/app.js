@@ -77,13 +77,14 @@ function createCardLinkArea() {
      var headerMarkDownUrl = document.createElement("H6");
      headerMarkDownUrl.align='center';
      headerMarkDownUrl.id = 'headerMarkdownUrl';
-     var textNodeMarkdownLink = document.createTextNode("Markdown");
+     var textNodeMarkdownLink = document.createTextNode("Markdown:");
+     textNodeMarkdownLink.id = 'textNodeMarkdownLink';
      headerMarkDownUrl.appendChild(textNodeMarkdownLink);
 
      var headerHTMLUrl = document.createElement("H6");
      headerHTMLUrl.align='center';
      headerHTMLUrl.id = 'headerHTMLUrl';
-     var textNodeHTMLLink = document.createTextNode("HTML");
+     var textNodeHTMLLink = document.createTextNode("HTML:");
      headerHTMLUrl.appendChild(textNodeHTMLLink);
 
      var insideDiv = document.createElement('div');
@@ -93,11 +94,27 @@ function createCardLinkArea() {
      insideDiv.appendChild(markdownLink);
      insideDiv.appendChild(headerHTMLUrl);
      insideDiv.appendChild(htmlLink);
+
      var div = document.createElement('div');
      div.className = 'list-group-item';
      div.id = 'list-group-item';
-     div.appendChild(img);
-     div.appendChild(insideDiv);
+
+     var row = document.createElement('div');
+     row.className = 'row';
+
+     var leftColumn = document.createElement('div');
+     leftColumn.className = 'col-md-3';
+
+     var rightColumn = document.createElement('div');
+     rightColumn.className = 'col-md-9';
+     rightColumn.id = 'rightColumn';
+
+
+     leftColumn.appendChild(img);
+     rightColumn.appendChild(insideDiv);
+     row.appendChild(leftColumn);
+     row.appendChild(rightColumn);
+     div.appendChild(row);
      cardList = document.getElementById("cardList");
      cardList.appendChild(div);
  }
