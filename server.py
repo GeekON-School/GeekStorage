@@ -32,5 +32,5 @@ settings = [
     (r'/images/(.*)', tornado.web.StaticFileHandler, {'path': os.path.join(os.path.dirname(os.path.realpath(__file__)),'images')}),
 ]
 app = tornado.web.Application(settings)
-app.listen(8888)
+app.listen(8083)
 tornado.ioloop.IOLoop.current().start()
