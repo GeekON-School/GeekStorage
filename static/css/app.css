@@ -7,38 +7,18 @@
     background: white;
 }
 
-#link_list {
-    text-align: center;
-}
-
 ul {
     list-style-type: none;
 }
-
-#directLink {
-    margin-left: 20px;
+img {
+    max-height: 100%;
+    max-width: 100%;
+    padding-top: 4vmax;
 }
 
-#markdownLink {
-    margin-left: 20px;
-}
+ .Link {
+    padding-top: 0.2vmax;
+    font-weight: bold;
+ }
 
-#htmlLink {
-    margin-left: 20px;
-}
 
-#headerMarkdownUrl {
-    margin-top: 5px;
-    align-content: center;
-}
-
-#headerHTMLUrl {
-    margin-top: 5px;
-}
-
-#rightColumn {
-    margin-left: auto;
-    margin-right: auto;
-    display: block;
-
-}
