@@ -1,7 +1,7 @@
 listOFLinks = [];
 
 Dropzone.options.myAwesomeDropzone = {
-    maxFilesize: 20, // Size in MB
+    maxFilesize: 200, // Size in MB
     dictDefaultMessage: "Перенесите файлы сюда или кликните для загрузки",
     previewsContainer: false,
     removedfile: function (file) {
