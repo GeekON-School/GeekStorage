@@ -47,6 +47,25 @@ S3_PUBLIC_BASE_URL=https://storage.yandexcloud.net/geekstorage
 
 If `S3_PUBLIC_BASE_URL` is omitted, GeekStorage proxies file reads through Flask.
 
+## HTTP caching
+
+`/file/<public_id>/<filename>` URLs identify immutable files and return
+`Cache-Control: public, max-age=31536000, immutable`. Publish a new URL when the
+contents change. Registered legacy `/images/<filename>` URLs return
+`Cache-Control: no-cache`, so clients validate their cached copy before reuse.
+
+Local files and proxied S3 files use the stored SHA-256 as `ETag` and the blob's
+creation time as `Last-Modified`. Matching conditional GET and HEAD requests return
+`304` before opening storage. A proxied S3 HEAD request also avoids downloading the
+object. Local files retain support for byte-range requests.
+
+Public S3 redirects are revalidated rather than cached permanently. The final
+response uses S3's own validators; new objects are uploaded with the immutable
+cache policy. Existing public S3 objects keep their current metadata until it is
+updated in the bucket.
+
+Run the caching regression tests with `python -m unittest discover -s tests`.
+
 ## Legacy files
 
 `scripts/migrate_legacy_files.py` imports files already present in `LOCAL_STORAGE_PATH` into the new database and keeps legacy `/images/<filename>` links working. The Docker migration service runs this script automatically after `flask db upgrade`.

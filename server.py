@@ -259,7 +259,7 @@ def public_file(public_id, filename):
     user_file = UserFile.query.filter_by(public_id=public_id).first_or_404()
     user_file.last_accessed_at = _utcnow()
     db.session.commit()
-    return _send_blob(user_file.blob, download_name=user_file.original_filename)
+    return _send_blob(user_file.blob, download_name=user_file.original_filename, immutable=True)
 
 
 @app.route('/images/<path:storage_name>')
@@ -278,23 +278,47 @@ def legacy_image(storage_name):
         abort(404)
 
 
-def _send_blob(blob, download_name=None):
+def _send_blob(blob, download_name=None, immutable=False):
+    metadata = Response(mimetype=blob.content_type or 'application/octet-stream')
+    metadata.set_etag(blob.checksum_sha256)
+    metadata.last_modified = blob.created_at
+    metadata.headers['Cache-Control'] = (
+        'public, max-age=31536000, immutable' if immutable else 'no-cache'
+    )
+    metadata.make_conditional(request)
+    if metadata.status_code != 200:
+        return metadata
+
     storage = get_storage(blob.storage_backend)
     if storage.name == 'local':
-        return send_from_directory(
+        response = send_from_directory(
             storage.root_path,
             blob.storage_key,
             mimetype=blob.content_type,
             download_name=download_name,
             as_attachment=False,
+            etag=blob.checksum_sha256,
+            last_modified=blob.created_at,
         )
+    else:
+        public_url = storage.public_url(blob.storage_key)
+        if public_url:
+            response = redirect(public_url)
+            response.cache_control.no_cache = True
+            return response
 
-    public_url = storage.public_url(blob.storage_key)
-    if public_url:
-        return redirect(public_url)
+        if request.method == 'HEAD':
+            metadata.content_length = blob.size
+            return metadata
 
-    stream, content_type = storage.open(blob.storage_key)
-    return Response(stream, mimetype=content_type or blob.content_type or 'application/octet-stream')
+        stream, content_type = storage.open(blob.storage_key)
+        response = Response(stream, mimetype=content_type or blob.content_type or 'application/octet-stream')
+        response.content_length = blob.size
+        response.call_on_close(stream.close)
+
+    for name in ('ETag', 'Last-Modified', 'Cache-Control'):
+        response.headers[name] = metadata.headers[name]
+    return response
 
 
 if __name__ == '__main__':

@@ -55,7 +55,13 @@ class S3Storage:
 
     def save(self, storage_name, body, content_type):
         key = self._key(storage_name)
-        self.client.put_object(Bucket=self.bucket, Key=key, Body=body, ContentType=content_type)
+        self.client.put_object(
+            Bucket=self.bucket,
+            Key=key,
+            Body=body,
+            ContentType=content_type,
+            CacheControl='public, max-age=31536000, immutable',
+        )
         return key
 
     def public_url(self, storage_key):
