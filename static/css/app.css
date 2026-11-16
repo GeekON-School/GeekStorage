@@ -1,22 +1,83 @@
-#dropArea {
-    margin: 30px auto 0;
-    padding: 0 20px;
-    border: 2px;
-    background: white;
+body {
+    min-height: 100vh;
+    background: #f6f7f9;
+    color: #1f2933;
 }
 
-ul {
-    list-style-type: none;
-}
-img {
-    max-height: 100%;
-    max-width: 100%;
-    padding-top: 4vmax;
+.navbar {
+    box-shadow: 0 1px 0 rgba(255, 255, 255, 0.08);
 }
 
- .Link {
-    padding-top: 0.2vmax;
-    font-weight: bold;
- }
+.decoration {
+    min-height: 176px;
+    border: 2px dashed #6ea8fe;
+    border-radius: 8px;
+    background: #ffffff;
+    color: #334155;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: border-color 0.15s ease, background-color 0.15s ease;
+}
 
+.decoration.dz-drag-hover {
+    border-color: #0d6efd;
+    background: #f0f6ff;
+}
 
+.decoration .dz-message {
+    margin: 0;
+}
+
+.decoration .dz-button {
+    color: #334155;
+    font-weight: 600;
+}
+
+.file-panel {
+    border: 1px solid #d9e2ec;
+    border-radius: 8px;
+    background: #ffffff;
+    box-shadow: 0 1px 2px rgba(15, 23, 42, 0.04);
+    overflow: hidden;
+}
+
+.file-panel .table {
+    --bs-table-hover-bg: #f8fafc;
+}
+
+.file-panel th {
+    color: #475569;
+    font-size: 0.8125rem;
+    font-weight: 700;
+    letter-spacing: 0;
+    text-transform: uppercase;
+}
+
+.file-name {
+    max-width: 28rem;
+    font-weight: 600;
+    word-break: break-word;
+}
+
+.file-link {
+    max-width: 30rem;
+}
+
+.file-link input {
+    min-width: 16rem;
+}
+
+.copy-status {
+    min-width: 5rem;
+}
+
+.empty-row td {
+    height: 7rem;
+}
+
+@media (max-width: 767.98px) {
+    .file-link input {
+        min-width: 12rem;
+    }
+}
