@@ -11,6 +11,6 @@
     "dropzone": "^6.0.0-beta.2"
   },
   "devDependencies": {
-    "vite": "^8.0.14"
+    "vite": "^8.1.6"
   }
 }
