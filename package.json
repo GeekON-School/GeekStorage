@@ -1,0 +1,16 @@
+{
+  "name": "geekstorage-assets",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "build": "vite build"
+  },
+  "dependencies": {
+    "bootstrap": "^5.3.3",
+    "dropzone": "^6.0.0-beta.2"
+  },
+  "devDependencies": {
+    "vite": "^8.0.14"
+  }
+}

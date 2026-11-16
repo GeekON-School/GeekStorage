@@ -1,41 +1,60 @@
-<html>
+<!doctype html>
+<html lang="ru">
 <head>
-    <meta http-equiv="Cache-control" content="no-cache">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Cache-Control" content="no-cache">
     <meta http-equiv="Pragma" content="no-cache">
     <meta http-equiv="Expires" content="-1">
-    <meta charset="utf-8">
     <title>GeekStorage</title>
-    <script src="/static/js/dropzone.js"></script>
-    <script src="/static/js/app.js"></script>
-    <link rel="stylesheet" href="/static/css/app.css">
-    <link rel="stylesheet" href="/static/css/dragzone.css">
-
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/simplemde/latest/simplemde.min.css">
-    <link rel="stylesheet" href="http://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta/css/bootstrap.min.css"
-          integrity="sha384-/Y6pD6FV/Vv2HJnA6t+vslU6fwYXjCFtcEpHbNJ0lyAFsXTsjBbfaDjzALeQsN6M" crossorigin="anonymous">
-
+    <link rel="stylesheet" href="/static/dist/assets/main.css">
+    <script type="module" src="/static/dist/assets/main.js"></script>
 </head>
 
 <body>
-<nav class="navbar navbar-expand-md navbar-dark bg-dark">
-    <a class="navbar-brand" href="/">GeekStorage</a>
-
-</nav>
-
-<div id="dropArea" class="container">
-    <div class="row">
-        <div class="col-12">
-            <form action="/" class="dropzone decoration"
-                  id="my-awesome-dropzone"></form>
-
-            <div id="cards">
-
-            </div>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <div class="container">
+        <a class="navbar-brand fw-semibold" href="/">GeekStorage</a>
+        <div class="navbar-nav ms-auto align-items-lg-center gap-lg-3">
+            <span class="navbar-text small">{{ session.get('name') }}</span>
+            <a class="nav-link px-0" href="/auth/logout">Выйти</a>
         </div>
     </div>
+</nav>
 
-</div>
+<main id="dropArea" class="container py-4 py-lg-5">
+    <div class="row justify-content-center">
+        <div class="col-12 col-xl-10">
+            <form action="/" class="dropzone decoration mb-4" id="my-awesome-dropzone"></form>
+            <section class="file-panel">
+                <div class="table-responsive">
+                    <table class="table table-hover align-middle mb-0">
+                        <thead>
+                        <tr>
+                            <th scope="col">Файл</th>
+                            <th scope="col" class="text-nowrap">Размер</th>
+                            <th scope="col" class="text-nowrap">Загружен</th>
+                            <th scope="col">Ссылка</th>
+                            <th scope="col" class="text-end">Действие</th>
+                        </tr>
+                        </thead>
+                        <tbody id="filesTableBody">
+                        <tr>
+                            <td colspan="5" class="text-center text-muted py-4">Загрузка списка файлов...</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+                <div class="d-flex flex-column flex-sm-row align-items-sm-center justify-content-between gap-3 p-3 border-top">
+                    <div id="filesPageInfo" class="small text-muted"></div>
+                    <nav aria-label="Навигация по файлам">
+                        <ul id="filesPagination" class="pagination pagination-sm mb-0"></ul>
+                    </nav>
+                </div>
+            </section>
+        </div>
+    </div>
+</main>
 
 </body>
 </html>

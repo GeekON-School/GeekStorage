@@ -1,0 +1,55 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: geekstorage
+      POSTGRES_USER: geekstorage
+      POSTGRES_PASSWORD: geekstorage
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $$POSTGRES_USER -d $$POSTGRES_DB"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  migrate:
+    build:
+      context: .
+    env_file:
+      - .env
+    environment:
+      CONNECTION_STRING: postgresql+psycopg2://geekstorage:geekstorage@postgres:5432/geekstorage
+      LOCAL_STORAGE_PATH: /data/images
+    command: ["sh", "-lc", "flask --app server.py db upgrade && python scripts/migrate_legacy_files.py"]
+    depends_on:
+      postgres:
+        condition: service_healthy
+    volumes:
+      - ./images:/data/images:ro
+    restart: "no"
+
+  web:
+    build:
+      context: .
+    env_file:
+      - .env
+    environment:
+      CONNECTION_STRING: postgresql+psycopg2://geekstorage:geekstorage@postgres:5432/geekstorage
+      LOCAL_STORAGE_PATH: /data/images
+      PORT: "8083"
+    command: ["gunicorn", "--bind", "0.0.0.0:8083", "--workers", "2", "--threads", "8", "--timeout", "120", "server:app"]
+    ports:
+      - "8083:8083"
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+    volumes:
+      - ./images:/data/images:ro
+    restart: unless-stopped
+
+volumes:
+  postgres_data:

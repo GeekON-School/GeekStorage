@@ -1,0 +1,8 @@
+.git
+.idea
+.env
+images
+node_modules
+__pycache__
+*.py[cod]
+GeekStorage_backups
